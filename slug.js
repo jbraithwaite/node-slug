@@ -1,13 +1,14 @@
 (function (root) {
 // lazy require symbols table
 var _symbols, removelist;
-function symbols(code) {
-    if (_symbols) return _symbols[code];
-    _symbols = require('unicode/category/So');
-    removelist = ['sign','cross','of','symbol','staff','hand','black','white']
-        .map(function (word) {return new RegExp(word, 'gi')});
-    return _symbols[code];
-}
+
+// function symbols(code) {
+//     if (_symbols) return _symbols[code];
+//     _symbols = require('unicode/category/So');
+//     removelist = ['sign','cross','of','symbol','staff','hand','black','white']
+//         .map(function (word) {return new RegExp(word, 'gi');});
+//     return _symbols[code];
+// }
 
 function slug(string, opts) {
     opts = opts || {};
@@ -16,8 +17,7 @@ function slug(string, opts) {
         opts = {replacement:opts};
     opts.replacement = opts.replacement || slug.defaults.replacement;
     opts.charmap = opts.charmap || slug.defaults.charmap;
-    if ('undefined' === typeof opts.symbols)
-        opts.symbols = slug.defaults.symbols;
+
     var code, unicode, result = "";
     for (var char, i = 0, len = string.length; i < len; i++) { char = string[i];
         if (opts.charmap[char]) {
@@ -26,14 +26,16 @@ function slug(string, opts) {
         } else {
             code = string.charCodeAt(i);
         }
-        if (opts.symbols && (unicode = symbols(code))) {
-            char = unicode.name.toLowerCase();
-            for(var j = 0, rl = removelist.length; j < rl; j++) {
-                char = char.replace(removelist[j], '');
-            }
-            char = char.replace(/^\s+|\s+$/g, '');
-        }
         char = char.replace(/[^\w\s$\*\_\+~\.\(\)\'\"\!\-:@]/g, ''); // allowed
+
+        // if (opts.symbols && (unicode = symbols(code))) {
+        //     char = unicode.name.toLowerCase();
+        //     for(var j = 0, rl = removelist.length; j < rl; j++) {
+        //         char = char.replace(removelist[j], '');
+        //     }
+        //     char = char.replace(/^\s+|\s+$/g, '');
+        // }
+
         result += char;
     }
     result = result.replace(/^\s+|\s+$/g, ''); // trim leading/trailing spaces
@@ -120,7 +122,7 @@ slug.charmap  = slug.defaults.charmap = {
 if (typeof define !== 'undefined' && define.amd) { // AMD
     define([], function () {return slug});
 } else if (typeof module !== 'undefined' && module.exports) { // CommonJS
-    symbols(); // preload symbols table
+    // symbols(); // preload symbols table
     module.exports = slug;
 } else { // Script tag
     slug.defaults.symbols = false; // dont load symbols table in the browser
