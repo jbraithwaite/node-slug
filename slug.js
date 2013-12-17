@@ -55,7 +55,7 @@ function slug(string, opts) {
     result = result.replace(/^\s+|\s+$/g, ''); // trim leading/trailing spaces
     result = result.replace(/[-\s]+/g, opts.replacement); // convert spaces
     result = result.replace(opts.replacement+"$",''); // remove trailing separator
-    result.toLowerCase(); // Lowercase
+    result = result.toLowerCase(); // Lowercase
 
     return result;
 }
