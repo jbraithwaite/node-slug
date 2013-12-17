@@ -11,15 +11,28 @@ var _symbols, removelist;
 // }
 
 function slug(string, opts) {
+
     opts = opts || {};
+
     string = string.toString();
-    if ('string' === typeof opts)
-        opts = {replacement:opts};
+
+    if ('string' === typeof opts){
+        opts = {replacement: opts};
+    }
+
+    if ('undefined' === typeof opts.symbols){
+        opts.symbols = slug.defaults.symbols;
+    }
+
     opts.replacement = opts.replacement || slug.defaults.replacement;
     opts.charmap = opts.charmap || slug.defaults.charmap;
 
     var code, unicode, result = "";
-    for (var char, i = 0, len = string.length; i < len; i++) { char = string[i];
+
+    for (var char, i = 0, len = string.length; i < len; i++) {
+
+        char = string[i];
+
         if (opts.charmap[char]) {
             char = opts.charmap[char];
             code = char.charCodeAt(0);
@@ -38,6 +51,7 @@ function slug(string, opts) {
         char = char.replace(/[^\w\s\_\+\-]/g, ''); // allowed
         result += char;
     }
+
     result = result.replace(/^\s+|\s+$/g, ''); // trim leading/trailing spaces
     result = result.replace(/[-\s]+/g, opts.replacement); // convert spaces
     result = result.replace(opts.replacement+"$",''); // remove trailing separator
@@ -48,7 +62,7 @@ function slug(string, opts) {
 
 slug.defaults = {
     replacement: '-',
-    symbols: true,
+    symbols: true
 };
 
 

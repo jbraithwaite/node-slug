@@ -1,14 +1,12 @@
 { "name": "slug"
-, "description": "slugifies even utf-8 chars!"
-, "version": "0.4.0"
+, "description": "slugifies even utf-8 chars! WIP -- DO NOT USE IN PRODUCTION"
+, "version": "0.0.1"
 , "homepage": "https://github.com/dodo/node-slug"
 , "author": "dodo (https://github.com/dodo)"
-, "repository": {"type": "git", "url": "git://github.com/dodo/node-slug.git"}
+, "repository": {"type": "git", "url": "git://github.com/jbraithwaite/node-slug.git"}
 , "main": "slug.js"
-, "engines": {"node": ">= 0.4.x"}
+, "engines": {"node": ">= 0.9.x"}
 , "keywords": ["slugify", "slug", "string", "utf8", "utf-8", "unicode", "url"]
-, "scripts": {
-    "test": "./node_modules/.bin/mocha ./test/*.test.* --require should --reporter spec --colors"}
 , "dependencies": {
     "unicode": ">= 0.3.1"}
 , "devDependencies": {
