@@ -26,7 +26,6 @@ function slug(string, opts) {
         } else {
             code = string.charCodeAt(i);
         }
-        char = char.replace(/[^\w\s$\*\_\+~\.\(\)\'\"\!\-:@]/g, ''); // allowed
 
         // if (opts.symbols && (unicode = symbols(code))) {
         //     char = unicode.name.toLowerCase();
@@ -36,6 +35,7 @@ function slug(string, opts) {
         //     char = char.replace(/^\s+|\s+$/g, '');
         // }
 
+        char = char.replace(/[^\w\s\_\+\-]/g, ''); // allowed
         result += char;
     }
     result = result.replace(/^\s+|\s+$/g, ''); // trim leading/trailing spaces
